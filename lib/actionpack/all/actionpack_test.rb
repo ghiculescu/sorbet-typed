@@ -107,6 +107,15 @@ class ActionPackMetalTest < ActionController::Metal
   end
 end
 
+class ApplicationController < ActionController::Base
+end
+
+class ClientsController < ApplicationController
+  def create
+    T.assert_type!(params, ActionController::Parameters)
+  end
+end
+
 module ActionPackCallbacksTest
   extend AbstractController::Callbacks::ClassMethods
 
@@ -156,7 +165,7 @@ module ActionPackCallbacksTest
   prepend_after_action(:action_name, only: :show)  { |controller| puts controller }
   after_action(:action_name, only: :show)          { |controller| puts controller }
   append_after_action(:action_name, only: :show)   { |controller| puts controller }
-  
+
   # Test proc for `if`, symbol for `only`, symbol array for `except`.
   prepend_before_action :action_name, if: -> { true }, only: :show, except: [:edit, :delete]
   before_action :action_name, if: -> { true }, only: :show, except: [:edit, :delete]

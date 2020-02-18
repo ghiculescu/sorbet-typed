@@ -1,6 +1,7 @@
 # typed: strong
 
 class ActionController::Base < ActionController::Metal
+  include ActionController::StrongParameters
 end
 
 class AbstractController::Base < Object
